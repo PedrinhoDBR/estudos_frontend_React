@@ -1,0 +1,51 @@
+
+.user-list-container {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #000;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.user-info p {
+  margin: 0 20px;
+}
+
+.filter-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.filter-container input {
+  width: 200px;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.filter-container input::placeholder {
+  color: #ccc;
+}
