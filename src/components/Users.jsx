@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Users.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+
+const apiUrl = process.env.REACT_APP_API_URL;
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState("");
+  const [filter, setFilter] = useState('');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/getusers')
+    fetch(`${apiUrl}/getusers`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Erro ao buscar os dados dos usuários');
@@ -26,6 +31,11 @@ const UserList = () => {
         setLoading(false);
       });
   }, []);
+
+  const filteredUsers = users.filter(user =>
+    user.username.toLowerCase().includes(filter.toLowerCase()) ||
+    user.email.toLowerCase().includes(filter.toLowerCase())
+  );
 
   if (loading) {
     return (
@@ -43,22 +53,23 @@ const UserList = () => {
     );
   }
 
-  const filteredUsers = users.filter(user =>
-    user.username.toLowerCase().includes(filter.toLowerCase()) ||
-    user.email.toLowerCase().includes(filter.toLowerCase())
-  );
-
   return (
     <div className="user-list-container">
-      <div className="filter-container">
-        <input 
-          type="text" 
-          placeholder="Digite para filtrar" 
-          value={filter} 
-          onChange={(e) => setFilter(e.target.value)} 
-        />
+      <div className="headers-container">
+        <button className="new-user-button" onClick={() => navigate('/newuser/$0')} >
+          Novo Usuário
+        </button>
+
+        <div className="filter-container">
+          <input 
+            type="text" 
+            placeholder="Digite para filtrar" 
+            value={filter} 
+            onChange={(e) => setFilter(e.target.value)} 
+          />
+        </div>
       </div>
-      
+
       {filteredUsers.length === 0 ? (
         <p className="no-users">Nenhum usuário encontrado.</p>
       ) : (
@@ -66,7 +77,11 @@ const UserList = () => {
           {filteredUsers.map(user => (
             <div key={user.id} className="user-card">
               <div className="user-info">
-                <FontAwesomeIcon icon={faBars} size="2x" />
+                <FontAwesomeIcon 
+                  icon={faPen} 
+                  onClick={() => navigate(`/user/${user.id}`)}
+                  style={{ cursor: 'pointer' }} 
+                />
                 <p>{user.username}</p>
                 <p>{user.email}</p>
               </div>

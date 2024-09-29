@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import UserList from '../src/components/Users';
-import Home from '../src/components/Home';
+import UserList from './components/Users';
+import Home from './components/Home';
+import NewUser from './components/Newuser';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/users" element={<UserList />} />
+          <Route path="/newuser/:id" element={<NewUser />} />
         </Routes>
       </div>
     </Router>
