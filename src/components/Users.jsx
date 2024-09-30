@@ -56,7 +56,7 @@ const UserList = () => {
   return (
     <div className="user-list-container">
       <div className="headers-container">
-        <button className="new-user-button" onClick={() => navigate('/newuser/$0')} >
+        <button className="new-user-button" onClick={() => navigate('/user/0')} >
           Novo Usuário
         </button>
 
